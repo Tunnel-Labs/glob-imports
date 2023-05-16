@@ -13,19 +13,25 @@ Given the following file structure:
     └── baz.js
 ```
 
-You can replace your typical barrel export file with a one-liner:
+Before:
 
-```javascript
+```
 // ./utils/index.js
-export * from 'glob:./!(index).js';
-
-/*
-Instead of:
-
 export * from './foo.js';
 export * from './bar.js';
 export * from './baz.js';
 // ... and all the other files inside `utils/`
-*/
 ```
 
+After:
+
+```javascript
+// ./utils/index.js
+export * from 'glob:./!(index).js';
+```
+
+## TypeScript
+
+`glob-imports` also comes with support for TypeScript, but requires a few steps to set up:
+
+<!-- TODO -->
