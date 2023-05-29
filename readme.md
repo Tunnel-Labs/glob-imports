@@ -15,7 +15,7 @@ Given the following file structure:
 
 Before:
 
-```
+```typescript
 // ./utils/index.js
 export * from './foo.js';
 export * from './bar.js';
