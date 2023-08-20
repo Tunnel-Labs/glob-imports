@@ -1,0 +1,17 @@
+{
+	"name": "glob-imports",
+	"version": "1.0.0",
+	"type": "commonjs",
+	"exports": {
+		"require": "./src/index.js",
+		"import": "./src/index.mjs"
+	},
+	"dependencies": {
+		"glob": "10.3.1",
+		"lion-utils": "0.2.2"
+	},
+	"devDependencies": {
+		"@types/node": "^20.5.1",
+		"typescript": "^5.1.6"
+	}
+}
