@@ -7,8 +7,8 @@
 		"import": "./src/index.mjs"
 	},
 	"dependencies": {
-		"glob": "10.3.1",
-		"lion-utils": "0.2.2"
+		"@tunnel/get-monorepo": "1.0.0",
+		"glob": "10.3.1"
 	},
 	"devDependencies": {
 		"@types/node": "^20.5.1",
