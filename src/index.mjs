@@ -3,10 +3,7 @@
 import exports from './index.js';
 
 export const {
-	getGlobfileContents,
-	getGlobfilePath,
+	createGlobfileManager,
 	getAbsoluteGlobPattern,
-	isGlobSpecifier,
-	getGlobfileType,
-	getGlobfileMatchedFiles
+	isGlobSpecifier
 } = exports;
