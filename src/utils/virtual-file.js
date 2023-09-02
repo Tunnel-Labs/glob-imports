@@ -3,7 +3,7 @@
 'use strict';
 
 // eslint-disable-next-line unicorn/prefer-node-protocol -- Parcel doesn't support protocol imports
-const path = require('path');
+const path = require('pathe');
 const { globSync } = require('glob');
 
 /**
