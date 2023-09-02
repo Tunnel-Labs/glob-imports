@@ -7,21 +7,21 @@ const path = require('pathe');
 const { globSync } = require('glob');
 
 /**
-	@param {{ globfileModuleSpecifier: string, importerFilePath: string }} args
+	@param {{ globfileModuleSpecifier: string, importerFilepath: string }} args
 	@return {string}
 */
 exports.getAbsoluteGlobPattern = function ({
 	globfileModuleSpecifier,
-	importerFilePath
+	importerFilepath
 }) {
 	if (globfileModuleSpecifier.startsWith('glob:')) {
 		return path.resolve(
-			path.dirname(importerFilePath),
+			path.dirname(importerFilepath),
 			globfileModuleSpecifier.replace('glob:', '')
 		);
 	} else {
 		return path.resolve(
-			path.dirname(importerFilePath),
+			path.dirname(importerFilepath),
 			globfileModuleSpecifier.replace('glob[files]:', '')
 		);
 	}
@@ -36,19 +36,19 @@ exports.isGlobSpecifier = function (specifier) {
 
 exports.createGlobfileManager = function ({ monorepoDirpath }) {
 	/**
-		@param {{ globfileModuleSpecifier: string, importerFilePath: string }} args
+		@param {{ globfileModuleSpecifier: string, importerFilepath: string }} args
 		@return {string}
 	*/
-	function getGlobfilePath({ globfileModuleSpecifier, importerFilePath }) {
+	function getGlobfilePath({ globfileModuleSpecifier, importerFilepath }) {
 		if (globfileModuleSpecifier.startsWith('glob:')) {
 			return path.resolve(
-				path.dirname(importerFilePath),
+				path.dirname(importerFilepath),
 				globfileModuleSpecifier.replace('glob:', '').replaceAll('!', '%21'),
 				'__virtual__:matches.ts'
 			);
 		} else if (globfileModuleSpecifier.startsWith('glob[files]:')) {
 			return path.resolve(
-				path.dirname(importerFilePath),
+				path.dirname(importerFilepath),
 				globfileModuleSpecifier
 					.replace('glob[files]:', '')
 					.replaceAll('!', '%21'),
@@ -56,14 +56,14 @@ exports.createGlobfileManager = function ({ monorepoDirpath }) {
 			);
 		} else if (globfileModuleSpecifier.startsWith('glob[filepaths]:')) {
 			return path.resolve(
-				path.dirname(importerFilePath),
+				path.dirname(importerFilepath),
 				globfileModuleSpecifier
 					.replace('glob[filepaths]:', '')
 					.replaceAll('!', '%21'),
 				'__virtual__:filepaths.ts'
 			);
 		} else {
-			return path.join(path.dirname(importerFilePath), globfileModuleSpecifier);
+			return path.join(path.dirname(importerFilepath), globfileModuleSpecifier);
 		}
 	}
 
