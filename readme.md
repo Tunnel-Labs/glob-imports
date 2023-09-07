@@ -29,9 +29,3 @@ After:
 // ./utils/index.js
 export * from 'glob:./!(index).js';
 ```
-
-## TypeScript
-
-`glob-imports` also comes with support for TypeScript, but requires a few steps to set up:
-
-<!-- TODO -->
