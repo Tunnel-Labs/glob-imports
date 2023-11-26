@@ -92,13 +92,21 @@ exports.createGlobfileManager = function ({ monorepoDirpath }) {
 			absolute: true
 		});
 		const matchedFiles = absoluteMatchedFilePaths.map(
-			(absoluteMatchedFilePath) => ({
-				absoluteFilepath: absoluteMatchedFilePath,
-				relativeFilepath: path.relative(
+			(absoluteMatchedFilePath) => {
+				let relativeFilepath = path.relative(
 					path.dirname(path.dirname(globfilePath)),
 					absoluteMatchedFilePath
-				)
-			})
+				);
+
+				if (!relativeFilepath.startsWith('.')) {
+					relativeFilepath = `./${relativeFilepath}`;
+				}
+
+				return {
+					absoluteFilepath: absoluteMatchedFilePath,
+					relativeFilepath
+				};
+			}
 		);
 
 		return matchedFiles;
