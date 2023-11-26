@@ -2,7 +2,6 @@
 
 'use strict';
 
-// eslint-disable-next-line unicorn/prefer-node-protocol -- Parcel doesn't support protocol imports
 const path = require('pathe');
 const { globSync } = require('glob');
 
@@ -83,7 +82,7 @@ exports.createGlobfileManager = function ({ monorepoDirpath }) {
 	/**
 		@param {object} args
 		@param {string} args.globfilePath
-		@returns {Array<{ absoluteFilePath: string, relativeFilePath: string }>}
+		@returns {Array<{ absoluteFilepath: string, relativeFilepath: string }>}
 	*/
 	function getGlobfileMatchedFiles({ globfilePath }) {
 		const globPattern = path.dirname(globfilePath).replaceAll('%21', '!');
@@ -94,9 +93,9 @@ exports.createGlobfileManager = function ({ monorepoDirpath }) {
 		});
 		const matchedFiles = absoluteMatchedFilePaths.map(
 			(absoluteMatchedFilePath) => ({
-				absoluteFilePath: absoluteMatchedFilePath,
-				relativeFilePath: path.relative(
-					path.dirname(globfilePath),
+				absoluteFilepath: absoluteMatchedFilePath,
+				relativeFilepath: path.relative(
+					path.dirname(path.dirname(globfilePath)),
 					absoluteMatchedFilePath
 				)
 			})
@@ -131,8 +130,8 @@ exports.createGlobfileManager = function ({ monorepoDirpath }) {
 							(matchedFile) =>
 								`export * from ${JSON.stringify(
 									filepathType === 'relative'
-										? matchedFile.relativeFilePath
-										: matchedFile.absoluteFilePath
+										? matchedFile.relativeFilepath
+										: matchedFile.absoluteFilepath
 								)};`
 						)
 					);
@@ -143,8 +142,8 @@ exports.createGlobfileManager = function ({ monorepoDirpath }) {
 							(matchedFile) =>
 								`...require(${JSON.stringify(
 									filepathType === 'relative'
-										? matchedFile.relativeFilePath
-										: matchedFile.absoluteFilePath
+										? matchedFile.relativeFilepath
+										: matchedFile.absoluteFilepath
 								)}),`
 						),
 						'};'
@@ -162,23 +161,23 @@ exports.createGlobfileManager = function ({ monorepoDirpath }) {
 				for (const matchedFile of matchedFiles) {
 					const relativeFilePath = path.relative(
 						monorepoDirpath,
-						matchedFile.absoluteFilePath
+						matchedFile.absoluteFilepath
 					);
 					const identifier = pathToIdentifier(relativeFilePath);
 					if (moduleType === 'module') {
 						virtualFileContentLines.push(
 							`import * as ${identifier} from ${JSON.stringify(
 								filepathType === 'relative'
-									? matchedFile.relativeFilePath
-									: matchedFile.absoluteFilePath
+									? matchedFile.relativeFilepath
+									: matchedFile.absoluteFilepath
 							)};`
 						);
 					} else {
 						virtualFileContentLines.push(
 							`const ${identifier} = require(${JSON.stringify(
 								filepathType === 'relative'
-									? matchedFile.relativeFilePath
-									: matchedFile.absoluteFilePath
+									? matchedFile.relativeFilepath
+									: matchedFile.absoluteFilepath
 							)});`
 						);
 					}
@@ -193,7 +192,7 @@ exports.createGlobfileManager = function ({ monorepoDirpath }) {
 				for (const matchedFile of matchedFiles) {
 					const relativeFilePath = path.relative(
 						monorepoDirpath,
-						matchedFile.absoluteFilePath
+						matchedFile.absoluteFilepath
 					);
 					const identifier = pathToIdentifier(relativeFilePath);
 					virtualFileContentLines.push(
@@ -215,7 +214,7 @@ exports.createGlobfileManager = function ({ monorepoDirpath }) {
 				for (const matchedFile of matchedFiles) {
 					const relativeFilePath = path.relative(
 						monorepoDirpath,
-						matchedFile.absoluteFilePath
+						matchedFile.absoluteFilepath
 					);
 					virtualFileContentLines.push(
 						`${JSON.stringify(relativeFilePath)}: true,`
